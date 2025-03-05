@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+    <entry key="insertMenu">
+        <!-- 쿼리를 key 와 value 로 저장한다.-->
+        INSERT
+        INTO TBL_MENU
+        (
+        MENU_NAME
+        , MENU_PRICE
+        , CATEGORY_CODE
+        , ORDERABLE_STATUS
+        )
+        VALUES
+        (
+        ?
+        , ?
+        , ?
+        , ?
+        )
+    </entry>
+    <entry key="updateMenu">
+        update tbl_menu
+        set menu_name = ?,
+        menu_price = ?
+        where menu_code = ?
+
+    </entry>
+</properties>

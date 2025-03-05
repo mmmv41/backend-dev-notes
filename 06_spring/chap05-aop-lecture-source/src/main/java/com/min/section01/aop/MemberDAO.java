@@ -1,0 +1,26 @@
+package com.min.section01.aop;
+
+import java.util.ArrayList;
+import java.util.List;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public class MemberDAO {
+
+    /* 설명. DB에서 조회되어 컬렉션에 담겼다는 가정 */
+    private final List<MemberDTO> memberList;
+
+    public MemberDAO() {
+        memberList = new ArrayList<>();
+        memberList.add(new MemberDTO(1L, "유관순"));
+        memberList.add(new MemberDTO(2L, "홍길동"));
+    }
+
+    public List<MemberDTO> selectAllMembers() {
+        return memberList;
+    }
+
+    public MemberDTO selectMemberBy(int index) {
+        return memberList.get(index);
+    }
+}

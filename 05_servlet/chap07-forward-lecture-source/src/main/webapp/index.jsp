@@ -1,0 +1,31 @@
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>JSP - Hello World</title>
+</head>
+<body>
+<h1>forward</h1>
+
+<%-- form 태그와 submit 은 세트다. --%>
+<form action="forward" method="post">
+    <%--    table>(tr>td*3)*2--%>
+    <table>
+        <tr>
+            <td>아이디:</td>
+            <td><input type="text" name="userId"></td>
+            <td rowspan="2">
+                <button type="submit" style="height : 50px">로그인</button>
+            </td>
+            <%--            rowspan - 3번째 셀이 합쳐지게 한다. --%>
+        </tr>
+        <tr>
+            <td>비밀번호:</td>
+            <td><input type="password" name="password"></td>
+        </tr>
+    </table>
+
+</form>
+
+</body>
+</html>

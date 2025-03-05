@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--     이 경로에 있는 MemberDTO를 빈으로 만들 것이다. -->
+    <!--    MemberDTO bean 등록-->
+    <bean id="member" class="com.min.common.MemberDTO">
+        <constructor-arg index="0" value="1"/>
+        <constructor-arg name="id" value="userId"/>
+        <constructor-arg index="2">
+            <value>pass01</value>
+        </constructor-arg>
+        <constructor-arg name="name" value="밍"/>
+        <!--            <value>홍길동</value>-->
+        <!--        </constructor-arg>-->
+        <!-- <constructor-arg> 사용 -> 생성자 주입 -->
+        <!--        필드의 개수 만큼 consturctor 를 만든다. -->
+    </bean>
+</beans>
