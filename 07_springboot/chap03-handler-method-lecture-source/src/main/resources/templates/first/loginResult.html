@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+<h1>session에 담긴 값(로그인 회원) 확인하기</h1>
+<h3 th:text="|${session.id}님 환영합니다.|"></h3>
+<!--memo : 변수 표현식(${}) : 변수를 가지고 리터럴 값이 남는다. -->
+<!--memo : 하나의 리터럴 값이 되는 식 -> 변수 표현식 -->
+<!--memo : session 은 스코프 이다. -->
+FirstController -> loginResult.html 로 forwarding
+<div>
+    <button onclick="location.href='logout1'">로그아웃1</button>
+    <button onclick="location.href='logout2'">로그아웃2</button>
+</div>
+</body>
+</html>

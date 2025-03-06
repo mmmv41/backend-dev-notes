@@ -1,17 +1,27 @@
 package com.min.handlermethod;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import java.util.Map;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 
 @Controller
 @RequestMapping("/first")
+
+/* 설명 : 이 Controller 클래스의 핸들러 메소드에서 Model 에 "id" 라는 키 값으로 담긴 값은 HttpSession 에 추가하는 어노테이션
+ *       HttpSession 에서 제공하는 invalidate() 가 아닌 SessionStatus 가 제공하는 setComplete() 를 통해 만료시킬 수 있다. */
+@SessionAttributes("id")  // model 과 session 에 다 담기게 하는 어노테이션
 public class FirstController {
 
     /* 설명 : 핸들러 메소드에서 반환형이 없을 경우 요청 경롤를 반환한다. (view의 경로 및 이름) */
@@ -60,7 +70,7 @@ public class FirstController {
 
     @PostMapping("modify1")
     public String modify1(Model model,
-                          @RequestParam(name = "name") String modifyName,
+                          @RequestParam(name = "name", defaultValue = "디폴트") String modifyName,
 //                          @RequestParam(name = "modifyPrice") int modifyPrice)
                           int modifyPrice) {
         // 넘어온 parameter 의 키값과 핸들러 메소드의 매개변수 이름이 같으면 생략 가능.
@@ -102,5 +112,58 @@ public class FirstController {
         System.out.println("menu = " + menu);
 
         return "first/searchResult";
+    }
+
+    @GetMapping("login")
+    public void login() {
+    }
+
+    @PostMapping("login")
+    /* memo : @RequestParam 방식으로 받는다.
+        @RequestParam(name = "modifyPrice") int modifyPrice 이런식으로 name과 변수명이 같으면 생략 가능. */
+    public String sessionTest1(String id, String pwd, HttpSession session) {
+        System.out.println("id = " + id);
+        System.out.println("pwd = " + pwd);
+
+        /* 설명 : 로그인 성공을 기정(회원 조회 이후) HttpSession 에 로그인 성공한 회원 정보 저장 */
+        session.setAttribute("id", id);
+        session.setAttribute("pwd", pwd);
+
+        return "first/loginResult";
+    }
+
+    @GetMapping("logout1")
+    public String logoutTest1(HttpSession session) {
+        session.invalidate();
+
+        return "first/loginResult";
+    }
+
+    /* 설명 : Model 에 담은 값 중에 일부를 HttpSession 에 자동으로 담도록 어노테이션 활용 */
+    @PostMapping("login2")
+    public String sessionTest2(Model model, String id) {
+        model.addAttribute("id", id);
+
+        return "first/loginResult";
+    }
+
+    @GetMapping("logout2")
+    public String logoutTest2(SessionStatus sessionStatus) {
+        sessionStatus.setComplete();    // 이렇게 해야 만료가 된다.
+
+        return "first/loginResult";
+    }
+
+    @GetMapping("body")
+    public void body() {
+    }
+
+    @PostMapping("body")
+    public void body(@RequestBody String body,
+                     @RequestHeader("content-type") String contentType,
+                     @CookieValue(value = "JSESSIONID") String sessionID) {
+        System.out.println("body = " + body);
+        System.out.println("contentType = " + contentType);
+        System.out.println("sessionID = " + sessionID);
     }
 }
