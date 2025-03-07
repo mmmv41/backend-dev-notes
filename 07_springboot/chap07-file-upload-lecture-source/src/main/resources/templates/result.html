@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+<h1>결과 페이지</h1>
+<h1 th:text="${message}"></h1>
+<div th:if="${img != null}">
+    <img th:src="${img}" width="200" height="200">  <!-- /img/single 이라고 넘어오게 되고, yml 파일에 적어둔거랑 합침 .? -->
+    <p th:text="${singleFileDescription}"></p>
+</div>
+
+<!-- <div th:else> -->
+<div th:if="${imgs != null}">
+    <th:block th:each="img : ${imgs}">
+        <img th:src="${img}" width="150" height="150">
+    </th:block>
+    <p th:text="${multiFileDescription}"></p>
+</div>
+</body>
+</html>
