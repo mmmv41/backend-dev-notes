@@ -85,6 +85,7 @@ public class FirstController {
     public String modify2(Model model,
                           @RequestParam Map<String, String> parameterMap) {
 
+        /* memo : get(key)를 하면 value를 꺼낼 수 있다.  */
         String modifyName = parameterMap.get("name");
         int modifyPrice = Integer.parseInt(parameterMap.get("modifyPrice"));
 
@@ -139,7 +140,8 @@ public class FirstController {
         return "first/loginResult";
     }
 
-    /* 설명 : Model 에 담은 값 중에 일부를 HttpSession 에 자동으로 담도록 어노테이션 활용 */
+    /* 설명 : Model 에 담은 값 중에 일부를 HttpSession 에 자동으로 담도록 어노테이션 활용 -> @SessionAttributes */
+    /* memo : 클래스 위에 @SessionAttributes("id") 로 어노테이션을 붙여주었다. */
     @PostMapping("login2")
     public String sessionTest2(Model model, String id) {
         model.addAttribute("id", id);
