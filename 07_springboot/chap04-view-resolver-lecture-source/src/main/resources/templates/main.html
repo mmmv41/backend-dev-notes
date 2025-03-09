@@ -2,6 +2,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
 </head>
 <body>
@@ -13,7 +16,6 @@
 <h3>문자열로 redirect</h3>
 <button onclick="location.href='string-redirect'">문자열로 뷰 이름 반환하여 리다이렉트</button>
 <script>
-    // `[[${}]]`value 값을 뽑아서 js의 문자열로 바꾸는 문법
     const message1 = `[[${message1}]]`;
     // console.log('test');
     console.log(message1);
@@ -41,9 +43,11 @@
     ModelAndView로 뷰 이름 반환하며 리다이렉트 & flash attr 사용하기
 </button>
 <script>
-    <!--    자바와 달리 타입이 없다. 동적 타입 언어. -->
     const flashMessage2 = `[[${flashMessage2}]]`;
-    console.log(flashMessage2);
+    // console.log(flashMessage2);
+    if (flashMessage2) {
+        alert(flashMessage2);
+    }
 </script>
 
 </body>

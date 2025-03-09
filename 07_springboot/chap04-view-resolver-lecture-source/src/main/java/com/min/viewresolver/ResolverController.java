@@ -32,7 +32,8 @@ public class ResolverController {
         model.addAttribute("message1", "문자열로 뷰 이름 반환하며 리다이렉트");
 
         /* 설명. MainController의 핸들러 메소드로 재요청 */
-        return "redirect:/";
+        /* memo : redirect: 키워드를 사용하면 ViewResolver 의 prefix 와 suffix 가 적용되지 않는다.  */
+        return "redirect:/";    /* memo : MainController의 '/' 매핑으로 이동 -> main.html 을 응답한다. */
     }
 
     @GetMapping("string-redirect-attr")
