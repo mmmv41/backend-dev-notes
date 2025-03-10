@@ -9,7 +9,7 @@ import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.apache.ibatis.transaction.jdbc.JdbcTransactionFactory;
 
 public class Application {
-    private static String driver = "com.mysql.cj.jdbc.Driver";
+    private static String driver = "com.mysql.jdbc.Driver";
     private static String url = "jdbc:mysql://localhost:3306/test";
     private static String user = "root";
     private static String password = "5133";
