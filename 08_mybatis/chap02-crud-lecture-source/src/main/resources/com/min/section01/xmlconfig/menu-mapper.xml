@@ -31,4 +31,22 @@
         FROM TBL_MENU
         WHERE MENU_CODE = #{menuCode}
     </select>
+    <!-- memo : dml 작업의 결과는 무조건 int 이기 때문에 resultType을 쓰지 않는다.-->
+    <insert id="insertMenu" parameterType="com.min.section01.xmlconfig.MenuDTO">
+        INSERT
+        INTO TBL_MENU
+        (
+        MENU_NAME
+        , MENU_PRICE
+        , CATEGORY_CODE
+        , ORDERABLE_STATUS
+        )
+        VALUES
+        (
+        #{menuName}
+        , #{menuPrice}
+        , #{categoryCode}
+        , 'Y'
+        )
+    </insert>
 </mapper>

@@ -38,4 +38,22 @@ public class MenuController {
             printResult.printErrorMessage(menuCode + "번의 메뉴는 없습니다.");
         }
     }
+
+    // 맵에 담은 걸 꺼내서 수동으로 MenuDTO에 넣는다. ?
+    public void registMenu(Map<String, String> parameter) {
+        String menuName = parameter.get("menuName");
+        int menuPrice = Integer.parseInt(parameter.get("menuPrice"));
+        int categoryCode = Integer.parseInt(parameter.get("categoryCode"));
+
+        MenuDTO menu = new MenuDTO();
+        menu.setMenuName(menuName);
+        menu.setMenuPrice(menuPrice);
+        menu.setCategoryCode(categoryCode);
+
+        if (menuService.registMenu(menu)) {
+            printResult.printSuccessMessage("regist");
+        } else {
+            printResult.printErrorMessage("메뉴 추가 실패 !");
+        }
+    }
 }
