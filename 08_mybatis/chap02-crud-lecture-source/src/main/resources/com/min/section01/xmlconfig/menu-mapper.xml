@@ -49,4 +49,18 @@
         , 'Y'
         )
     </insert>
+
+    <update id="updateMenu" parameterType="MenuDTO">
+        <!--        하나의 타입만 올 수 있다.-->
+        UPDATE
+        TBL_MENU
+        SET MENU_NAME = #{menuName}
+        , MENU_PRICE = #{menuPrice}
+        WHERE MENU_CODE = #{menuCode}
+    </update>
+    <delete id="deleteMenu" parameterType="_int">
+        DELETE
+        FROM TBL_MENU
+        WHERE MENU_CODE = #{menuCode}
+    </delete>
 </mapper>
