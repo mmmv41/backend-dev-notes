@@ -73,5 +73,4 @@ public interface MenuMapper {
                      WHERE MENU_CODE = #{menuCode}
             """)
     int deleteMenu(int menuCode);
-
 }
