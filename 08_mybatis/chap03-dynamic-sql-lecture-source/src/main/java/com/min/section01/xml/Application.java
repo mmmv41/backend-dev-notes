@@ -6,7 +6,6 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Scanner;
 import java.util.Set;
 
@@ -61,14 +60,34 @@ public class Application {
                     ms.searchMenuByCodeOrSearchAll(inputAllOrOne());
                     break;
                 case 2:
-                    ms.searchMenuByNameOrCategory(inputSearchCriteriaMap())
+                    ms.searchMenuByNameOrCategory(inputSearchCriteriaMap());
                     break;
                 case 3:
+                    ms.modifyMenu(inputChangeInfo());
                     break;
                 case 9:
                     return;
             }
         } while (true);
+    }
+
+    private static Map<String, Object> inputChangeInfo() {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("변경할 메뉴 코드를 입력하세요 : ");
+        int menuCode = sc.nextInt();
+        System.out.print("변경할 메뉴 이름을 입력하세요 : ");
+        sc.nextLine();
+        String menuName = sc.nextLine();
+        System.out.println("변경할 판매 여부를 결정해 주세요(Y/N) : ");
+        String orderableStatus = sc.nextLine().toUpperCase();
+
+        Map<String, Object> criteria = new HashMap<>();
+        criteria.put("menuCode", menuCode);
+        criteria.put("menuName", menuName);
+        criteria.put("orderableStatus", orderableStatus);
+
+        return criteria;
     }
 
     private static Map<String, Object> inputSearchCriteriaMap() {

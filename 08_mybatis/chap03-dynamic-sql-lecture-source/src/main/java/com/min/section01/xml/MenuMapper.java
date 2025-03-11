@@ -1,6 +1,7 @@
 package com.min.section01.xml;
 
 import java.util.List;
+import java.util.Map;
 
 public interface MenuMapper {
     List<MenuDTO> selectMenuByPrice(int maxPrice);
@@ -12,4 +13,8 @@ public interface MenuMapper {
     List<MenuDTO> searchMenuByRandomMenuCode(List<Integer> randomList);
 
     List<MenuDTO> searchMenuByCodeOrSearchAll(SearchCriteria searchCriteria);
+
+    List<MenuDTO> searchMenuByNameOrCategory(Map<String, Object> criteria);
+
+    int updateMenu(Map<String, Object> criteria);
 }
