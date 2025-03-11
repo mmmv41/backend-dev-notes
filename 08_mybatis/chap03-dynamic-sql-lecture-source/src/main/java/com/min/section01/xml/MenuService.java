@@ -3,6 +3,7 @@ package com.min.section01.xml;
 import static com.min.section01.xml.Template.getSqlSession;
 
 import java.util.List;
+import java.util.Map;
 import org.apache.ibatis.session.SqlSession;
 
 public class MenuService {
@@ -49,5 +50,19 @@ public class MenuService {
         menus.forEach(System.out::println);
 
         sqlsession.close();
+    }
+
+    public void searchMenuByCodeOrSearchAll(SearchCriteria searchCriteria) {
+        SqlSession sqlsession = getSqlSession();
+        MenuMapper mapper = sqlsession.getMapper(MenuMapper.class);
+
+        List<MenuDTO> menus = mapper.searchMenuByCodeOrSearchAll(searchCriteria);
+        System.out.println("===== Service Layer");
+        menus.forEach(System.out::println);
+
+        sqlsession.close();
+    }
+
+    public void searchMenuByNameOrCategory(Map<String, Object> stringObjectMap) {
     }
 }

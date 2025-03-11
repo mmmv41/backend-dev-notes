@@ -7,17 +7,17 @@ public class SearchCriteria {
     public SearchCriteria() {
     }
 
-    public SearchCriteria(String confition, String value) {
-        this.condition = confition;
+    public SearchCriteria(String condition, String value) {
+        this.condition = condition;
         this.value = value;
     }
 
-    public String getConfition() {
+    public String getCondition() {
         return condition;
     }
 
-    public void setConfition(String confition) {
-        this.condition = confition;
+    public void setCondition(String condition) {
+        this.condition = condition;
     }
 
     public String getValue() {
@@ -31,7 +31,7 @@ public class SearchCriteria {
     @Override
     public String toString() {
         return "SearchCriteria{" +
-                "confition='" + condition + '\'' +
+                "condition='" + condition + '\'' +
                 ", value='" + value + '\'' +
                 '}';
     }
