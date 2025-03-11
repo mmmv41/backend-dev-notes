@@ -15,4 +15,9 @@
             </dataSource>
         </environment>
     </environments>
+
+    <!-- 설명 : mapper 들이 존재하는 패키지로 한번에 mapper 등록이 가능하다. (java/remix 방식만 해당) -->
+    <mappers>
+        <package name="com.min.section01.xml"/>
+    </mappers>
 </configuration>
