@@ -24,7 +24,7 @@ public class Application {
                 case 3:
                     es.selectResultMapCollectionTest();
                     break;
-
+ 
             }
         } while (true);
     }

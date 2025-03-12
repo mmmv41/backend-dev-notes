@@ -28,5 +28,14 @@ public class ElementService {
         sqlSession.close();
     }
 
+    // 한 쪽이 다른쪽을 지니고 있을 때 -> collection 타입 (지양하는 것이 좋다. onetomany 관계이다. )
+    public void selectResultMapCollectionTest() {
+        SqlSession sqlSession = getSqlSession();
+        ElementMapper mapper = sqlSession.getMapper(ElementMapper.class);
 
+        List<CategoryAndMenuDTO> categories = mapper.selectResultMapCollectionTest();
+        categories.forEach(System.out::println);
+
+        sqlSession.close();
+    }
 }
