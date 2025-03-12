@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
 
+// 주문을 하기 위해 값을 뭉쳐놓는 주머니
 public class OrderDTO {
     private LocalDate orderDate;                    // 서버의 현재 날짜
     private LocalTime orderTime;                    // 서버의 현재 시간
