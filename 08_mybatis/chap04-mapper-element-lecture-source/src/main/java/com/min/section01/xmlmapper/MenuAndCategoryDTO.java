@@ -1,5 +1,6 @@
 package com.min.section01.xmlmapper;
 
+// 조인의 결과가 카테고리를 품은 메뉴가 됨
 public class MenuAndCategoryDTO {
     private int menuCode;
     private String menuName;

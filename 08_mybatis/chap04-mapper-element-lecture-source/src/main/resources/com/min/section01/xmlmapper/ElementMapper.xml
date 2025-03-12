@@ -24,4 +24,52 @@
         FROM TBL_MENU A
         WHERE A.ORDERABLE_STATUS = 'Y'
     </select>
+
+    <!-- 설명 : join 을 위한 resultMap 들 -->
+    <!--    <resultMap id="menuAndCategoryResultMap"-->
+    <!--               type="com.min.section01.xmlmapper.MenuAndCategoryDTO">-->
+    <!--        &lt;!&ndash; memo : select 에서의 컬럼이 여기에서의 컬럼이기 때문에 MENU_CODE를 MC 이렇게도 작성 가능  &ndash;&gt;-->
+    <!--        <id property="menuCode" column="MENU_CODE"/>-->
+    <!--        <result property="menuName" column="MENU_NAME"/>-->
+    <!--        <result property="menuPrice" column="MENU_PRICE"/>-->
+    <!--        <result property="orderableStatus" column="ORDERABLE_STATUS"/>-->
+    <!--        &lt;!&ndash;     객체가 들어가도록 매핑&ndash;&gt;-->
+    <!--        <association property="category" resultMap="categoryResultMap"/>-->
+    <!--    </resultMap>-->
+    <!--    &lt;!&ndash; memo : categoryDTO 를 담기위한 resultMap 을 따로 만든다.    &ndash;&gt;-->
+    <!--    <resultMap id="categoryResultMap" type="com.min.section01.xmlmapper.CategoryDTO">-->
+    <!--        <id property="categoryCode" column="CATEGORY_CODE"/>-->
+    <!--        <result property="categoryName" column="CATEGORY_NAME"/>-->
+    <!--        <result property="refCategoryCode" column="REF_CATEGORY_CODE"/>-->
+    <!--    </resultMap>-->
+
+    <!-- memo : java 타입. resultMap 하나로 해결하는 방법. association 안에 한번에 적는디.    -->
+    <resultMap id="menuAndCategoryResultMap"
+               type="com.min.section01.xmlmapper.MenuAndCategoryDTO">
+        <id property="menuCode" column="MENU_CODE"/>
+        <result property="menuName" column="MENU_NAME"/>
+        <result property="menuPrice" column="MENU_PRICE"/>
+        <result property="orderableStatus" column="ORDERABLE_STATUS"/>
+        <!--    memo : 여기에 javaType 으로 적는다.     -->
+        <association property="category" javaType="com.min.section01.xmlmapper.CategoryDTO">
+            <id property="categoryCode" column="CATEGORY_CODE"/>
+            <result property="categoryName" column="CATEGORY_NAME"/>
+            <result property="refCategoryCode" column="REF_CATEGORY_CODE"/>
+        </association>
+    </resultMap>
+
+    <select id="selectResultMapAssociationTest" resultMap="menuAndCategoryResultMap">
+        SELECT
+        A.MENU_CODE
+        , A.MENU_NAME
+        , A.MENU_PRICE
+        , A.CATEGORY_CODE
+        , B.CATEGORY_CODE
+        , B.CATEGORY_NAME
+        , B.REF_CATEGORY_CODE
+        , A.ORDERABLE_STATUS
+        FROM TBL_MENU A
+        JOIN TBL_CATEGORY B ON (A.CATEGORY_CODE = B.CATEGORY_CODE)
+        WHERE A.ORDERABLE_STATUS = 'Y'
+    </select>
 </mapper>
