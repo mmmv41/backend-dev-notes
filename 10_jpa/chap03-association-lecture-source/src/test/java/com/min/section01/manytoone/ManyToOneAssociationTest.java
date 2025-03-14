@@ -11,8 +11,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class ManyToOneAssociationTest {
-    private static
-    EntityManagerFactory entityManagerFactory;
+    private static EntityManagerFactory entityManagerFactory;
 
     private EntityManager entityManager;
 
