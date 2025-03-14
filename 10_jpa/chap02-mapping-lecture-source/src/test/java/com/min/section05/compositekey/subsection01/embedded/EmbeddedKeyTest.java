@@ -1,4 +1,4 @@
-package com.min.section02.column;
+package com.min.section05.compositekey.subsection01.embedded;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
@@ -6,11 +6,12 @@ import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.Persistence;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class ColumnMappingTest {
+public class EmbeddedKeyTest {
     private static EntityManagerFactory entityManagerFactory;
 
     private EntityManager entityManager;
@@ -36,30 +37,25 @@ public class ColumnMappingTest {
     }
 
     @Test
-    public void 컬럼에서_사용하는_속성_테스트() {
-
-        // given
+    public void 임베디드_아이디를_사용한_복합키_테이블_매핑_테스트() {
         Member member = new Member();
-        member.setMemberNo(1);
-        member.setMemberId("user01");
-        member.setMemberPwd("pass01");
-        member.setNickName("홍길동");
+        member.setMemberPK(new MemberPK(1, "user01"));
         member.setPhone("010-1234-5678");
-        member.setEmail("hong@gmail.com");
-        member.setAddress("서울시 서초구");
-        member.setEnrollDate(new java.util.Date());
-        member.setMemberRole("ROLE_MEMBER");
-        member.setStatus("Y");
+        member.setAddress("서울시 종로구");
 
-        // when
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
+
         entityManager.persist(member);
 
-        // then
-        Member foundMember = entityManager.find(Member.class, 1);
-        foundMember.setNickName("동해번쩍");
-
         transaction.commit();
+
+        // Embeddable이 하나의 값으로 취급 된다.
+        /* 설명 : 복합키는 하나의 타입(MemberPK) 이여야 하며 PK 비교 시 동등 비교가 가능(equals/hashCode) 해야 한다.  */
+        Member foundMember = entityManager.find(Member.class,
+                member.getMemberPK()); // 복합키 인데도 가능하게됨. 하나의 값이여야 find를 사용할 수 있다.
+        Assertions.assertEquals(member.getMemberPK(), foundMember.getMemberPK());
+
+
     }
 }

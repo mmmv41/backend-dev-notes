@@ -1,4 +1,4 @@
-package com.min.section02.column;
+package com.min.section04.enumtype;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
@@ -6,11 +6,12 @@ import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.Persistence;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class ColumnMappingTest {
+public class EnumTypeMappingTest {
     private static EntityManagerFactory entityManagerFactory;
 
     private EntityManager entityManager;
@@ -36,30 +37,28 @@ public class ColumnMappingTest {
     }
 
     @Test
-    public void 컬럼에서_사용하는_속성_테스트() {
-
-        // given
+    public void enum타입_매핑_테스트() {
         Member member = new Member();
         member.setMemberNo(1);
         member.setMemberId("user01");
         member.setMemberPwd("pass01");
-        member.setNickName("홍길동");
+        member.setNickname("홍길동");
         member.setPhone("010-1234-5678");
         member.setEmail("hong@gmail.com");
         member.setAddress("서울시 서초구");
         member.setEnrollDate(new java.util.Date());
-        member.setMemberRole("ROLE_MEMBER");
+        member.setMemberRole(RoleType.ROLE_MEMBER);
         member.setStatus("Y");
 
-        // when
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
+
         entityManager.persist(member);
 
-        // then
-        Member foundMember = entityManager.find(Member.class, 1);
-        foundMember.setNickName("동해번쩍");
-
         transaction.commit();
+
+        Member foundMember = entityManager.find(Member.class, member.getMemberNo());
+        System.out.println("foundMember = " + foundMember);
+        Assertions.assertEquals(member.getMemberNo(), foundMember.getMemberNo());
     }
 }

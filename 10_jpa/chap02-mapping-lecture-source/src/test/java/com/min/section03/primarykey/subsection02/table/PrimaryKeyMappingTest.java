@@ -38,22 +38,47 @@ public class PrimaryKeyMappingTest {
 
     @Test
     public void 식별자_매핑_테스트() {
-        Member member1 = new Member();
+        Member member = new Member();
+//        member.setMemberNo(1);
+        member.setMemberId("user01");
+        member.setMemberPwd("pass01");
+        member.setNickName("홍길동");
+        member.setPhone("010-1234-5678");
+        member.setEmail("hong@gmail.com");
+        member.setAddress("서울시 서초구");
+        member.setEnrollDate(new java.util.Date());
+        member.setMemberRole("ROLE_MEMBER");
+        member.setStatus("Y");
 
         Member member2 = new Member();
+//        member.setMemberNo(1);
+        member2.setMemberId("user02");
+        member2.setMemberPwd("pass02");
+        member2.setNickName("유관순");
+        member2.setPhone("010-3131-5678");
+        member2.setEmail("yu@gmail.com");
+        member2.setAddress("서울시 강남구");
+        member2.setEnrollDate(new java.util.Date());
+        member2.setMemberRole("ROLE_ADMIN");
+        member2.setStatus("Y");
 
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
 
-        entityManager.persist(member1);   // persist() : 비영속 상태를 영속 상태로 바꿔달라
+        entityManager.persist(member);  // persist() : 비영속 상태를 영속 상태로 바꿔달라
         entityManager.persist(member2);
 
         transaction.commit();
 
-        /* 설명 : persist 당시에는 부여되지 않은 pk 값으로 commit 이후 조회를 하면 가능할까? */
-        Member selectedMember = entityManager.find(Member.class, 1);
+        /* 설명. persist 당시에는 부여되지 않은 pk값으로 commit 이후 조회를 하면 가능할까? */
+        Member selectedMember = entityManager.find(Member.class, 2);
         System.out.println("selectedMember = " + selectedMember);
 
-        Assertions.assertEquals(1, selectedMember.getMemberNo());
+        Assertions.assertEquals(2, selectedMember.getMemberNo());
+
+        /* 설명. 다중행 조회는 find로는 안되고 jpql이라는 문법을 사용해야 가능하다. */
+//        String jpql = "SELECT A FROM member_section03_subsection01 A";
+//        List<com.min.section03.primarykey.subsection01.identity.Member> memberCodeList = entityManager.createQuery(jpql, Member.class).getResultList();
+//        memberCodeList.forEach(System.out::println);
     }
 }

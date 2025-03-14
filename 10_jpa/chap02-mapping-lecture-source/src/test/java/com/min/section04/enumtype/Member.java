@@ -1,29 +1,20 @@
-package com.min.section03.primarykey.subsection02.table;
+package com.min.section04.enumtype;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import jakarta.persistence.TableGenerator;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
 import java.util.Date;
 
-@Entity(name = "member_section03_subsection02")
-@Table(name = "tbl_member_section03_subsection02")
-@TableGenerator(
-        name = "member_seq_table_generator",
-        table = "tbl_my_sequence",
-        pkColumnValue = "my_seq_member_no"
-)
+@Entity(name = "member_section04")
+@Table(name = "tbl_member_section04")
 public class Member {
 
     @Id
     @Column(name = "member_no")
-    @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "member_seq_table_generator")
-    private int memberNo;   // pk 이기 때문에 not null 조건이 걸려있다.
+    private int memberNo;
 
     @Column(name = "member_id")
     private String memberId;
@@ -32,24 +23,25 @@ public class Member {
     private String memberPwd;
 
     @Column(name = "nickname")
-    private String nickName;
+    private String nickname;
 
-    // 없는 DB 를 생성할 때 쓰는 속성 (이걸로 테이블을 만들 때 속성을 써주는 편이다, 보통 DB 모델링에서 써주고 여기서는 쓰지 않는다.)
-    @Column(name = "phone", columnDefinition = "varchar(200) default '010-0000-1234'")
+    @Column(name = "phone")
     private String phone;
 
-    @Column(name = "email", unique = true)
+    @Column(name = "email")
     private String email;
 
-    @Column(name = "address", nullable = false)
+    @Column(name = "address")
     private String address;
 
     @Column(name = "enroll_date")
-    @Temporal(TemporalType.TIMESTAMP)       // Datetime
     private Date enrollDate;
 
+    /* 설명. Enum 타입은 숫자(ORDINAL)/이름(STRING) 두 가지 형태로 설정할 수 있다.(DB에 들어갈 값) */
     @Column(name = "member_role")
-    private String memberRole;
+    @Enumerated(EnumType.STRING)
+//    @Enumerated(EnumType.ORDINAL)
+    private RoleType memberRole;
 
     @Column(name = "status")
     private String status;
@@ -57,12 +49,12 @@ public class Member {
     public Member() {
     }
 
-    public Member(int memberNo, String memberId, String memberPwd, String nickName, String phone, String email,
-                  String address, Date enrollDate, String memberRole, String status) {
+    public Member(int memberNo, String memberId, String memberPwd, String nickname, String phone, String email,
+                  String address, Date enrollDate, RoleType memberRole, String status) {
         this.memberNo = memberNo;
         this.memberId = memberId;
         this.memberPwd = memberPwd;
-        this.nickName = nickName;
+        this.nickname = nickname;
         this.phone = phone;
         this.email = email;
         this.address = address;
@@ -95,12 +87,12 @@ public class Member {
         this.memberPwd = memberPwd;
     }
 
-    public String getNickName() {
-        return nickName;
+    public String getNickname() {
+        return nickname;
     }
 
-    public void setNickName(String nickName) {
-        this.nickName = nickName;
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
     }
 
     public String getPhone() {
@@ -135,11 +127,11 @@ public class Member {
         this.enrollDate = enrollDate;
     }
 
-    public String getMemberRole() {
+    public RoleType getMemberRole() {
         return memberRole;
     }
 
-    public void setMemberRole(String memberRole) {
+    public void setMemberRole(RoleType memberRole) {
         this.memberRole = memberRole;
     }
 
@@ -157,7 +149,7 @@ public class Member {
                 "memberNo=" + memberNo +
                 ", memberId='" + memberId + '\'' +
                 ", memberPwd='" + memberPwd + '\'' +
-                ", nickName='" + nickName + '\'' +
+                ", nickname='" + nickname + '\'' +
                 ", phone='" + phone + '\'' +
                 ", email='" + email + '\'' +
                 ", address='" + address + '\'' +
