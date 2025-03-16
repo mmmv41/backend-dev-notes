@@ -5,7 +5,7 @@
     <persistence-unit name="jpatest">
 
         <!-- 설명. 엔티티는 설정에 따로 추가할 예정 -->
-
+        <class>com.min.section01.simple.Menu</class>
 
         <properties>
 
@@ -25,7 +25,7 @@
                   create-drop: 애플리케이션 실행 시 항상 create table 진행, 종료 시 drop
                   update: 애플리케이션 실행 시 기존 테이블이 없다면 create table, 있다면 컬럼이 추가 될 때만 alter
              -->
-            <!--            <property name="hibernate.hbm2ddl.auto" value="create"/>--> <!--tbl_menu가 drop되고 다시 create되면안되니까?-->
+            <!--            <property name="hibernate.hbm2ddl.auto" value="create"/>-->
         </properties>
     </persistence-unit>
 </persistence>
