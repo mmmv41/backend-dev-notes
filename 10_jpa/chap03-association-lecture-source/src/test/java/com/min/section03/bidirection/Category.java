@@ -1,13 +1,16 @@
-package com.min.section01.manytoone;
+package com.min.section03.bidirection;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import java.util.List;
 
-@Entity(name = "category_section01")
+@Entity(name = "bidirection_category")
 @Table(name = "tbl_category")
 public class Category {
+
     @Id
     @Column(name = "category_code")
     private int categoryCode;
@@ -15,18 +18,20 @@ public class Category {
     @Column(name = "category_name")
     private String categoryName;
 
-    // null 값 들어갈 수 있으면 래퍼 클래스로 작성
-    /* 설명 : Null 값이 들어갈 수 있는 엔티티의 필드는 참조 자료형을 쓴다. */
     @Column(name = "ref_category_code")
     private Integer refCategoryCode;
+
+    @OneToMany(mappedBy = "category") // 자식테이블에 의해 매핑된다.
+    private List<Menu> menuList;    /* memo : Menu 테이블을 본다.  */
 
     public Category() {
     }
 
-    public Category(int categoryCode, String categoryName, Integer refCategoryCode) {
+    public Category(int categoryCode, String categoryName, Integer refCategoryCode, List<Menu> menuList) {
         this.categoryCode = categoryCode;
         this.categoryName = categoryName;
         this.refCategoryCode = refCategoryCode;
+        this.menuList = menuList;
     }
 
     public int getCategoryCode() {
@@ -53,12 +58,21 @@ public class Category {
         this.refCategoryCode = refCategoryCode;
     }
 
+    public List<Menu> getMenuList() {
+        return menuList;
+    }
+
+    public void setMenuList(List<Menu> menuList) {
+        this.menuList = menuList;
+    }
+
     @Override
     public String toString() {
-        return "Category{" +
+        return "CategoryAndMenu{" +
                 "categoryCode=" + categoryCode +
                 ", categoryName='" + categoryName + '\'' +
                 ", refCategoryCode=" + refCategoryCode +
+//                ", menuList=" + menuList +
                 '}';
     }
 }

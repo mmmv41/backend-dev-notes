@@ -9,6 +9,9 @@
         <class>com.min.section01.manytoone.MenuAndCategory</class>
         <class>com.min.section02.onetomany.CategoryAndMenu</class>
         <class>com.min.section02.onetomany.Menu</class>
+        <class>com.min.section03.bidirection.Menu</class>
+        <class>com.min.section03.bidirection.Category</class>
+
 
         <properties>
 
