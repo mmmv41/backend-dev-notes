@@ -87,9 +87,22 @@ public class MenuService {
 
     /* 설명 : 6. 추가하기  */
     // DTO -> Entity
+    /* todo : 이부분 꼼꼼히 복습하기 */
     @Transactional
     public void registMenu(MenuDTO newMenu) {
         menuRepository.save(modelMapper.map(newMenu, Menu.class));
         // 영속성 컨텍스트에 담겼다가 커밋 시점에 날아간다.
+    }
+
+    @Transactional
+    public void modifyMenu(MenuDTO modifyMenu) {
+        /* 설명 : 수정할 메뉴를 가져와서(영속 상태로 만들어) 영속 상태인 객체를 수정하면 update */
+        Menu foundMenu = menuRepository.findById(modifyMenu.getMenuCode()).get();
+        foundMenu.setMenuName(modifyMenu.getMenuName());
+    }
+
+    @Transactional
+    public void deleteMenu(int menuCode) {
+        menuRepository.deleteById(menuCode);
     }
 }

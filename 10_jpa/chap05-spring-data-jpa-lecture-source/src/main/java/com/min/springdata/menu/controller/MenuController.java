@@ -120,9 +120,29 @@ public class MenuController {
 
     @PostMapping("regist")
     public String registMenu(MenuDTO newMenu) {
-//        log.debug("컨트롤러에서 커멘드 객체로 한번에 입력값 잘 받는지 확인 : {}", newMenu);
+//        log.debug("컨트롤러에서 커맨드 객체로 한번에 입력값 잘 받는지 확인: {}", newMenu);
 
         menuService.registMenu(newMenu);
+
+        return "redirect:/menu/list";
+    }
+
+    @GetMapping("modify")
+    public void modifyMenuPage() {}
+
+    @PostMapping("modify")
+    public String modiyMenu(MenuDTO modifyMenu) {
+        menuService.modifyMenu(modifyMenu);
+
+        return "redirect:/menu/" + modifyMenu.getMenuCode();
+    }
+
+    @GetMapping("delete")
+    public void deleteMenuPage() {}
+
+    @PostMapping("delete")
+    public String deleteMenu(@RequestParam int menuCode) {
+        menuService.deleteMenu(menuCode);
 
         return "redirect:/menu/list";
     }
