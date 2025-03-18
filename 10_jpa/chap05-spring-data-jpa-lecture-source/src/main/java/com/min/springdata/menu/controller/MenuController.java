@@ -2,9 +2,11 @@ package com.min.springdata.menu.controller;
 
 import com.min.springdata.common.Pagination;
 import com.min.springdata.common.PagingButtonInfo;
+import com.min.springdata.menu.dto.CategoryDTO;
 import com.min.springdata.menu.dto.MenuDTO;
 import com.min.springdata.menu.repository.MenuRepository;
 import com.min.springdata.menu.service.MenuService;
+import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -14,7 +16,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @RequestMapping("/menu")
@@ -89,4 +94,37 @@ public class MenuController {
 
         return "menu/list";
     }
+
+    @GetMapping("querymethod")
+    public void queryMethodPage() {}
+
+    @GetMapping("search")
+    // querymethod.html 의 name 과 동일한 변수명을 써야한다 (@RequestParam 생략 가능)
+    public String findMenuPrice(@RequestParam int menuPrice, Model model) {
+        List<MenuDTO> menuList = menuService.findMenuPrice(menuPrice);
+
+        model.addAttribute("menuList", menuList);
+        model.addAttribute("menuPrice", menuPrice);
+
+        return "menu/searchResult";
+    }
+
+    @GetMapping("regist")
+    public void registMenuPage() {}
+
+    @GetMapping("category")
+    @ResponseBody   // modelandview 의 개념이 아님. 핸들러메소드의 문자열은 JSON 이 된다.
+    public List<CategoryDTO> findCategoryList() {
+        return menuService.findAllCategory();
+    }
+
+    @PostMapping("regist")
+    public String registMenu(MenuDTO newMenu) {
+//        log.debug("컨트롤러에서 커멘드 객체로 한번에 입력값 잘 받는지 확인 : {}", newMenu);
+
+        menuService.registMenu(newMenu);
+
+        return "redirect:/menu/list";
+    }
+
 }
